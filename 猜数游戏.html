@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>猜数游戏</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    .container {
+        max-width: 400px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    button {
+        padding: 10px 20px;
+        margin-top: 10px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>猜数游戏</h1>
+    <p>请猜一个1~100的数</p>
+    <input type="number" id="guess" min="1" max="100">
+    <button onclick="checkGuess()">确定</button>
+    <p id="message"></p>
+</div>
+
+<script>
+    const randomNumber = Math.floor(Math.random() * 100) + 1;
+    let attempts = 0;
+
+    function checkGuess() {
+        const guess = parseInt(document.getElementById('guess').value);
+        attempts++;
+
+        if (guess === randomNumber) {
+            document.getElementById('message').innerHTML = `Congratulations! You guessed the number in ${attempts} attempts.`;
+        } else if (guess < randomNumber) {
+            document.getElementById('message').innerHTML = '尝试更高的数字。';
+        } else {
+            document.getElementById('message').innerHTML = '尝试更低的数字。';
+        }
+    }
+</script>
+</body>
+</html>
