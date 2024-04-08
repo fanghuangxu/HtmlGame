@@ -9,6 +9,7 @@
   <a href='computer.html'>支持电脑的网页游戏<br><a>
   <a href='phone.html'>支持手机的网页游戏<br></a>
     <h1>论坛</h1>
+<input type="text" id="a" placeholder="名字">
 <div id="chat"></div>
 <input type="text" id="message" placeholder="输入消息">
 <button onclick="sendMessage()">发送</button>
@@ -24,7 +25,8 @@ if(localStorage.getItem('chatHistory')) {
 
 function sendMessage() {
     const message = messageInput.value;
-    chat.innerHTML += `<p><strong>我：</strong> ${message}</p>`;
+    const name = aInput.value;
+    chat.innerHTML += `<p><strong> ${name}</strong> ${message}</p>`;
     
     // 将聊天记录保存到本地存储
     let chatHistory = chat.innerHTML;
