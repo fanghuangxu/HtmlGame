@@ -17,7 +17,7 @@
 <script>
 const chat = document.getElementById('chat');
 const messageInput = document.getElementById('message');
-
+const aInput = document.getElementById('a');
 // 从本地存储中加载聊天记录
 if(localStorage.getItem('chatHistory')) {
     chat.innerHTML = localStorage.getItem('chatHistory');
