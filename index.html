@@ -10,44 +10,44 @@
     <a href='computer.html'>支持电脑的网页游戏</a>
     <a href='phone.html'>支持手机的网页游戏</a>
     <h1>论坛</h1>
-    <input type="text" id="a" placeholder="名字">
-    <div id="chat"></div>
-    <input type="text" id="message" placeholder="输入消息">
-    <button onclick="sendMessage()">发送</button>
+    <body>
+<h1>简易聊天室</h1>
+<div id="chat"></div>
+<input type="text" id="message" placeholder="输入消息">
+<button onclick="sendMessage()">发送</button>
 
-    <script>
-        const chat = document.getElementById('chat');
-        const messageInput = document.getElementById('message');
-        const aInput = document.getElementById('a');
-        // 从本地存储中加载聊天记录
-        if(localStorage.getItem('chatHistory')) {
-            chat.innerHTML = localStorage.getItem('chatHistory');
-        }
+<script>
+const chat = document.getElementById('chat');
+const messageInput = document.getElementById('message');
 
-        function sendMessage() {
-            const message = messageInput.value;
-            const name = aInput.value;
-            chat.innerHTML += `<p><strong>${name}</strong> ${message}</p>`;
-            
-            // 将聊天记录保存到本地存储
-            let chatHistory = chat.innerHTML;
-            localStorage.setItem('chatHistory', chatHistory);
+// 从本地存储中加载聊天记录
+if(localStorage.getItem('chatHistory')) {
+    chat.innerHTML = localStorage.getItem('chatHistory');
+}
 
-            // 触发自定义事件，通知其他窗口有新消息
-            const event = new CustomEvent('newMessage', { detail: message });
-            window.dispatchEvent(event);
+function sendMessage() {
+    const message = messageInput.value;
+    chat.innerHTML += `<p><strong>用户：</strong> ${message}</p>`;
+    
+    // 将聊天记录保存到本地存储
+    let chatHistory = chat.innerHTML;
+    localStorage.setItem('chatHistory', chatHistory);
 
-            messageInput.value = '';
-        }
+    // 触发自定义事件，通知其他窗口有新消息
+    const event = new CustomEvent('newMessage', { detail: message });
+    window.dispatchEvent(event);
 
-        // 监听来自其他窗口的新消息事件
-        window.addEventListener('newMessage', function(event) {
-            const message = event.detail;
-            chat.innerHTML += `<p><strong>其他人：</strong> ${message}</p>`;
-            // 更新本地存储的聊天记录
-            let chatHistory = chat.innerHTML;
-            localStorage.setItem('chatHistory', chatHistory);
-        });
-    </script>
+    messageInput.value = '';
+}
+
+// 监听来自其他窗口的新消息事件
+window.addEventListener('newMessage', function(event) {
+    const message = event.detail;
+    chat.innerHTML += `<p><strong>其他人：</strong> ${message}</p>`;
+    // 更新本地存储的聊天记录
+    let chatHistory = chat.innerHTML;
+    localStorage.setItem('chatHistory', chatHistory);
+});
+</script>
 </body>
 </html>
