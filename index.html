@@ -10,44 +10,37 @@
     <a href='computer.html'>支持电脑的网页游戏</a>
     <a href='phone.html'>支持手机的网页游戏</a>
     <h1>论坛</h1>
-    <body>
-<h1>论坛：</h1>
-<div id="chat"></div>
-<input type="text" id="message" placeholder="输入消息">
-<button onclick="sendMessage()">发送</button>
+  <div id="chat"></div>
+  <input type="text" id="username" placeholder="用户名"><br>
+  <input type="text" id="message" placeholder="输入信息">
+  <button onclick="sendMessage()">Send</button>
 
-<script>
-const chat = document.getElementById('chat');
-const messageInput = document.getElementById('message');
+  <script>
+    const socket = new WebSocket('wss://echo.websocket.org');
 
-// 从本地存储中加载聊天记录
-if(localStorage.getItem('chatHistory')) {
-    chat.innerHTML = localStorage.getItem('chatHistory');
-}
+    socket.onopen = function(event) {
+      console.log('WebSocket connection opened');
+    };
 
-function sendMessage() {
-    const message = messageInput.value;
-    chat.innerHTML += `<p><strong>用户：</strong> ${message}</p>`;
-    
-    // 将聊天记录保存到本地存储
-    let chatHistory = chat.innerHTML;
-    localStorage.setItem('chatHistory', chatHistory);
+    socket.onmessage = function(event) {
+      displayMessage(event.data);
+    };
 
-    // 触发自定义事件，通知其他窗口有新消息
-    const event = new CustomEvent('newMessage', { detail: message });
-    window.dispatchEvent(event);
+    function sendMessage() {
+      const messageInput = document.getElementById('message');
+      const usernameInput = document.getElementById('username');
+      const message = messageInput.value;
+      const username = usernameInput.value;
+      socket.send(username+': '+message);
+      messageInput.value = '';
+    }
 
-    messageInput.value = '';
-}
-
-// 监听来自其他窗口的新消息事件
-window.addEventListener('newMessage', function(event) {
-    const message = event.detail;
-    chat.innerHTML += `<p><strong>其他人：</strong> ${message}</p>`;
-    // 更新本地存储的聊天记录
-    let chatHistory = chat.innerHTML;
-    localStorage.setItem('chatHistory', chatHistory);
-});
-</script>
+    function displayMessage(message) {
+      const chatDiv = document.getElementById('chat');
+      const messageElement = document.createElement('p');
+      messageElement.textContent = message;
+      chatDiv.appendChild(messageElement);
+    }
+  </script>
 </body>
 </html>
