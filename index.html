@@ -7,40 +7,7 @@
 </head>
 <body>
     <p>作者：方黄旭</p>
-    <a href='computer.html'>支持电脑的网页游戏</a>
+    <a href='computer.html'>支持电脑的网页游戏</a><br>
     <a href='phone.html'>支持手机的网页游戏</a>
-    <h1>论坛</h1>
-  <div id="chat"></div>
-  <input type="text" id="username" placeholder="用户名"><br>
-  <input type="text" id="message" placeholder="输入信息">
-  <button onclick="sendMessage()">Send</button>
-
-  <script>
-    const socket = new WebSocket('wss://echo.websocket.org');
-
-    socket.onopen = function(event) {
-      console.log('WebSocket connection opened');
-    };
-
-    socket.onmessage = function(event) {
-      displayMessage(event.data);
-    };
-
-    function sendMessage() {
-      const messageInput = document.getElementById('message');
-      const usernameInput = document.getElementById('username');
-      const message = messageInput.value;
-      const username = usernameInput.value;
-      socket.send(username+': '+message);
-      messageInput.value = '';
-    }
-
-    function displayMessage(message) {
-      const chatDiv = document.getElementById('chat');
-      const messageElement = document.createElement('p');
-      messageElement.textContent = message;
-      chatDiv.appendChild(messageElement);
-    }
-  </script>
 </body>
 </html>
