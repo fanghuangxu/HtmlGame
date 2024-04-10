@@ -1,0 +1,23 @@
+{
+  "name": "hgame",
+  "version": "1.0.0",
+  "description": "A brief description of your project",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "keyword1",
+    "keyword2"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "dependency1": "^1.0.0",
+    "dependency2": "~2.1.0"
+  },
+  "devDependencies": {
+    "devDependency1": "^1.0.0"
+  }
+}
